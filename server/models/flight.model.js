@@ -1,67 +1,81 @@
 const flightModel = (sequelize, DataTypes) => {
   const Flight = sequelize.define('flight', {
     fltId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       primaryKey: true,
       allowNull: false,
-      autoIncrement: true,
     },
     airId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       allowNull: false,
       references: {
         model: 'airlines',
-        key: 'airId',
-      },
+        key: 'airId'
+      }
     },
-    fltNumber: {
-      type: DataTypes.STRING,
+    fltRange: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      unique: true,
+    },
+    fltFuelCap: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    airModel: {
+      type: DataTypes.STRING(5),
+      allowNull: false,
+    },
+    fltTotSeat: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     fltOrigin: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
       allowNull: false,
     },
-    fltDestination: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    fltDepDate: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-    },
-    fltDepTime: {
-      type: DataTypes.TIME,
-      allowNull: false,
-    },
-    fltArrDate: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-    },
-    fltArrTime: {
-      type: DataTypes.TIME,
-      allowNull: false,
-    },
-    fltDuration: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    fltCapacity: {
-      type: DataTypes.INTEGER,
+    fltDest: {
+      type: DataTypes.STRING(20),
       allowNull: false,
     },
     fltTkPrice: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    fltArrTime: {
+      type: DataTypes.TIME,
+      allowNull: false,
+    },
+    fltDepTime: {
+      type: DataTypes.TIME,
+      allowNull: false,
+    },
+    fltEndTime: {
+      type: DataTypes.TIME,
+      allowNull: false,
+    },
+    fltTotDur: {
+      type: DataTypes.TIME,
+      allowNull: false,
+    },
+    fltCabBag: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    fltMainBag: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     fltStatus: {
-      type: DataTypes.ENUM('Scheduled', 'Delayed', 'Cancelled', 'Active', 'Completed'),
-      defaultValue: 'Scheduled',
+      type: DataTypes.ENUM('A', 'I'),
+      defaultValue: 'A',
+    },
+    fltRemark: {
+      type: DataTypes.STRING(15),
+      allowNull: true,
     },
   });
 
   return Flight;
 };
 
-module.exports = flightModel; 
+module.exports = flightModel;

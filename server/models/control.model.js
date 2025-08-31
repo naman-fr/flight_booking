@@ -1,27 +1,31 @@
 const controlModel = (sequelize, DataTypes) => {
   const Control = sequelize.define('control', {
-    controlId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
+    keyField1: {
+      type: DataTypes.STRING(10),
       allowNull: false,
-      autoIncrement: true,
     },
-    paramName: {
-      type: DataTypes.STRING,
+    keyField2: {
+      type: DataTypes.STRING(10),
       allowNull: false,
-      unique: true,
     },
-    paramValue: {
-      type: DataTypes.STRING,
+    value: {
+      type: DataTypes.STRING(10),
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: DataTypes.STRING(15),
+      allowNull: false,
     },
+  }, {
+    indexes: [
+      {
+        unique: true,
+        fields: ['keyField1', 'keyField2', 'value'],
+      },
+    ],
   });
 
   return Control;
 };
 
-module.exports = controlModel; 
+module.exports = controlModel;

@@ -1,43 +1,41 @@
 const ticketModel = (sequelize, DataTypes) => {
   const Ticket = sequelize.define('ticket', {
-    tkId: {
-      type: DataTypes.INTEGER,
+    tktId: {
+      type: DataTypes.STRING(5),
       primaryKey: true,
       allowNull: false,
-      autoIncrement: true,
     },
     bkId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       allowNull: false,
       references: {
         model: 'bookings',
-        key: 'bkId',
-      },
+        key: 'bkId'
+      }
     },
     psgId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       allowNull: false,
       references: {
         model: 'passengers',
-        key: 'psgId',
-      },
+        key: 'psgId'
+      }
     },
-    tkNumber: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    tkPricePaid: {
+    tktSeatNum: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    tkStatus: {
-      type: DataTypes.ENUM('Confirmed', 'Canceled', 'Refunded'),
-      defaultValue: 'Confirmed',
+    tktStatus: {
+      type: DataTypes.ENUM('U', 'C', 'P', 'R', 'W'),
+      defaultValue: 'U',
+    },
+    tktRemark: {
+      type: DataTypes.STRING(15),
+      allowNull: true,
     },
   });
 
   return Ticket;
 };
 
-module.exports = ticketModel; 
+module.exports = ticketModel;

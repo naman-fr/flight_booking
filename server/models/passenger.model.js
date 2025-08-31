@@ -1,38 +1,37 @@
 const passengerModel = (sequelize, DataTypes) => {
   const Passenger = sequelize.define('passenger', {
     psgId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       primaryKey: true,
       allowNull: false,
-      autoIncrement: true,
     },
-    userId: {
-      type: DataTypes.STRING,
+    usrId: {
+      type: DataTypes.STRING(5),
       allowNull: false,
       references: {
         model: 'users',
-        key: 'userId',
-      },
+        key: 'userId'
+      }
     },
     psgName: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(20),
+      allowNull: false,
+    },
+    psgGender: {
+      type: DataTypes.ENUM('M', 'F', 'O'),
       allowNull: false,
     },
     psgAge: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    psgGender: {
-      type: DataTypes.ENUM('Male', 'Female', 'Other'),
+    psgRltn: {
+      type: DataTypes.STRING(10),
       allowNull: false,
-    },
-    psgSeatNum: {
-      type: DataTypes.STRING,
-      allowNull: true,
     },
   });
 
   return Passenger;
 };
 
-module.exports = passengerModel; 
+module.exports = passengerModel;

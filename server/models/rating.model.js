@@ -1,28 +1,22 @@
 const ratingModel = (sequelize, DataTypes) => {
   const Rating = sequelize.define('rating', {
-    ratingId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      allowNull: false,
-      autoIncrement: true,
-    },
-    userId: {
-      type: DataTypes.STRING,
+    usrId: {
+      type: DataTypes.STRING(5),
       allowNull: false,
       references: {
         model: 'users',
-        key: 'userId',
-      },
+        key: 'userId'
+      }
     },
     fltId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       allowNull: false,
       references: {
         model: 'flights',
-        key: 'fltId',
-      },
+        key: 'fltId'
+      }
     },
-    ratingValue: {
+    rating: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
@@ -30,13 +24,20 @@ const ratingModel = (sequelize, DataTypes) => {
         max: 5,
       },
     },
-    ratingComment: {
-      type: DataTypes.STRING,
+    feedback: {
+      type: DataTypes.STRING(50),
       allowNull: true,
     },
+  }, {
+    indexes: [
+      {
+        unique: true,
+        fields: ['usrId', 'fltId'],
+      },
+    ],
   });
 
   return Rating;
 };
 
-module.exports = ratingModel; 
+module.exports = ratingModel;

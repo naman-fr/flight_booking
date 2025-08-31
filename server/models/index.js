@@ -32,20 +32,20 @@ db.Control = require('./control.model')(sequelize, DataTypes);
 // Define Associations
 
 // User has one Customer profile
-db.User.hasOne(db.Customer, { foreignKey: 'userId', as: 'profile' });
-db.Customer.belongsTo(db.User, { foreignKey: 'userId' });
+db.User.hasOne(db.Customer, { foreignKey: 'usrId', as: 'profile' });
+db.Customer.belongsTo(db.User, { foreignKey: 'usrId' });
 
 // User has one Airline profile
-db.User.hasOne(db.Airline, { foreignKey: 'userId', as: 'airlineProfile' });
-db.Airline.belongsTo(db.User, { foreignKey: 'userId' });
+db.User.hasOne(db.Airline, { foreignKey: 'airId', as: 'airlineProfile' });
+db.Airline.belongsTo(db.User, { foreignKey: 'airId' });
 
 // User (Customer) has many Bookings
-db.User.hasMany(db.Booking, { foreignKey: 'userId' });
-db.Booking.belongsTo(db.User, { foreignKey: 'userId' });
+db.User.hasMany(db.Booking, { foreignKey: 'usrId' });
+db.Booking.belongsTo(db.User, { foreignKey: 'usrId' });
 
 // User (Customer) has many Passengers
-db.User.hasMany(db.Passenger, { foreignKey: 'userId' });
-db.Passenger.belongsTo(db.User, { foreignKey: 'userId' });
+db.User.hasMany(db.Passenger, { foreignKey: 'usrId' });
+db.Passenger.belongsTo(db.User, { foreignKey: 'usrId' });
 
 // Airline has many Flights
 db.Airline.hasMany(db.Flight, { foreignKey: 'airId' });
@@ -64,12 +64,12 @@ db.Passenger.hasMany(db.Ticket, { foreignKey: 'psgId' });
 db.Ticket.belongsTo(db.Passenger, { foreignKey: 'psgId' });
 
 // User (Customer) can rate many Flights (creates a join table)
-db.User.belongsToMany(db.Flight, { through: db.Rating, foreignKey: 'userId' });
+db.User.belongsToMany(db.Flight, { through: db.Rating, foreignKey: 'usrId' });
 db.Flight.belongsToMany(db.User, { through: db.Rating, foreignKey: 'fltId' });
 
 // User (Customer) can file many Grievances against Flights
-db.User.hasMany(db.Grievance, { foreignKey: 'userId' });
-db.Grievance.belongsTo(db.User, { foreignKey: 'userId' });
+db.User.hasMany(db.Grievance, { foreignKey: 'usrId' });
+db.Grievance.belongsTo(db.User, { foreignKey: 'usrId' });
 db.Flight.hasMany(db.Grievance, { foreignKey: 'fltId' });
 db.Grievance.belongsTo(db.Flight, { foreignKey: 'fltId' });
 

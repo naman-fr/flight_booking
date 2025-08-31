@@ -1,46 +1,41 @@
 const grievanceModel = (sequelize, DataTypes) => {
   const Grievance = sequelize.define('grievance', {
     grvId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       primaryKey: true,
       allowNull: false,
-      autoIncrement: true,
     },
-    userId: {
-      type: DataTypes.STRING,
+    usrId: {
+      type: DataTypes.STRING(5),
       allowNull: false,
       references: {
         model: 'users',
-        key: 'userId',
-      },
+        key: 'userId'
+      }
     },
     fltId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       allowNull: false,
       references: {
         model: 'flights',
-        key: 'fltId',
-      },
+        key: 'fltId'
+      }
     },
-    grvSubject: {
-      type: DataTypes.STRING,
+    complaint: {
+      type: DataTypes.STRING(100),
       allowNull: false,
     },
-    grvDescription: {
-      type: DataTypes.STRING(1000),
-      allowNull: false,
+    response: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
     },
-    grvDate: {
-      type: DataTypes.DATEONLY,
-      allowNull: false,
-    },
-    grvStatus: {
-      type: DataTypes.ENUM('Pending', 'Resolved', 'Rejected'),
-      defaultValue: 'Pending',
+    status: {
+      type: DataTypes.ENUM('P', 'R'),
+      defaultValue: 'P',
     },
   });
 
   return Grievance;
 };
 
-module.exports = grievanceModel; 
+module.exports = grievanceModel;

@@ -1,18 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const { authJwt } = require('../middleware');
 const adminController = require('../controllers/admin.controller');
+const authMiddleware = require('../middleware/auth.middleware');
 
 // All routes in this file are protected and require Admin role
-router.use(authJwt.verifyToken, authJwt.isAdmin);
+router.use(authMiddleware.verifyToken, authMiddleware.isAdmin);
 
-// Manage Airlines
+// User Management
+router.get('/users', adminController.getAllUsers);
+router.put('/users/:userId/status', adminController.updateUserStatus);
+router.delete('/users/:userId', adminController.deleteUser);
+
+// Airline Management
 router.post('/airlines', adminController.createAirline);
 router.get('/airlines', adminController.getAllAirlines);
-router.get('/airlines/:id', adminController.getAirlineById);
-router.put('/airlines/:id', adminController.updateAirline);
-router.delete('/airlines/:id', adminController.deleteAirline);
+router.put('/airlines/:airId', adminController.updateAirline);
+router.delete('/airlines/:airId', adminController.deleteAirline);
 
-//... other admin routes for users, flights, etc.
+// Customer Management
+router.get('/customers', adminController.getAllCustomers);
+router.put('/customers/:usrId', adminController.updateCustomer);
 
-module.exports = router; 
+// Grievance Management
+router.get('/grievances', adminController.getAllGrievances);
+router.put('/grievances/:grvId/respond', adminController.respondToGrievance);
+
+// Reports and Analytics
+router.get('/stats', adminController.getSystemStats);
+router.get('/reports/revenue', adminController.getRevenueReport);
+router.get('/reports/popular-routes', adminController.getPopularRoutes);
+
+module.exports = router;

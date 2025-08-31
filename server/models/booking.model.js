@@ -1,46 +1,45 @@
 const bookingModel = (sequelize, DataTypes) => {
   const Booking = sequelize.define('booking', {
     bkId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       primaryKey: true,
       allowNull: false,
-      autoIncrement: true,
     },
-    userId: {
-      type: DataTypes.STRING,
+    usrId: {
+      type: DataTypes.STRING(5),
       allowNull: false,
       references: {
         model: 'users',
-        key: 'userId',
-      },
+        key: 'userId'
+      }
     },
     fltId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       allowNull: false,
       references: {
         model: 'flights',
-        key: 'fltId',
-      },
+        key: 'fltId'
+      }
     },
     bkDate: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.DATE,
       allowNull: false,
     },
-    bkNumPassengers: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    bkTotalPrice: {
-      type: DataTypes.INTEGER,
+    bkDepDate: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
     bkStatus: {
-      type: DataTypes.ENUM('Upcoming', 'Completed', 'Cancelled', 'Cancellation Request', 'Cancelled with Refund'),
-      defaultValue: 'Upcoming',
+      type: DataTypes.ENUM('U', 'C', 'P', 'R', 'W'),
+      defaultValue: 'U',
+    },
+    bkRemark: {
+      type: DataTypes.STRING(15),
+      allowNull: true,
     },
   });
 
   return Booking;
 };
 
-module.exports = bookingModel; 
+module.exports = bookingModel;
